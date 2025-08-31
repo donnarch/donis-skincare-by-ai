@@ -1,0 +1,745 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Donis Skincare - Clear Skin, Confident You</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <style>
+      /* Custom styles that Tailwind doesn't cover */
+      .hero-bg {
+        background-image: linear-gradient(
+            rgba(255, 255, 255, 0.9),
+            rgba(255, 255, 255, 0.9)
+          ),
+          url("https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80");
+        background-size: cover;
+        background-position: center;
+      }
+      .product-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+      }
+      .nav-link:hover::after {
+        width: 100%;
+      }
+      .nav-link::after {
+        content: "";
+        display: block;
+        width: 0;
+        height: 2px;
+        background: #86efac;
+        transition: width 0.3s;
+      }
+      .blog-card:hover .blog-img {
+        transform: scale(1.05);
+      }
+    </style>
+  </head>
+  <body class="font-sans bg-white text-gray-800">
+    <!-- Navigation -->
+    <nav class="fixed w-full bg-white shadow-sm z-50">
+      <div
+        class="container mx-auto px-4 py-3 flex justify-between items-center"
+      >
+        <a href="#" class="text-2xl font-bold text-green-300"
+          >DONIS <span class="text-green-400">SKINCARE</span></a
+        >
+        <div class="hidden md:flex space-x-8">
+          <a href="#home" class="nav-link">Home</a>
+          <a href="#products" class="nav-link">Products</a>
+          <a href="#about" class="nav-link">About</a>
+          <a href="#blog" class="nav-link">Tips</a>
+          <a href="#contact" class="nav-link">Contact</a>
+        </div>
+        <div class="flex items-center space-x-4">
+          <a href="#" class="relative">
+            <i class="fas fa-shopping-cart text-green-400 text-xl"></i>
+            <span
+              class="cart-count absolute -top-2 -right-2 bg-green-400 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center"
+              >0</span
+            >
+          </a>
+          <button class="md:hidden text-green-400" id="mobile-menu-button">
+            <i class="fas fa-bars text-2xl"></i>
+          </button>
+        </div>
+      </div>
+      <!-- Mobile Menu -->
+      <div
+        class="md:hidden hidden bg-white w-full py-2 px-4 shadow-md"
+        id="mobile-menu"
+      >
+        <a href="#home" class="block py-2 border-b border-gray-100">Home</a>
+        <a href="#products" class="block py-2 border-b border-gray-100"
+          >Products</a
+        >
+        <a href="#about" class="block py-2 border-b border-gray-100">About</a>
+        <a href="#blog" class="block py-2 border-b border-gray-100">Tips</a>
+        <a href="#contact" class="block py-2">Contact</a>
+      </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero-bg pt-32 pb-20 md:pt-40 md:pb-32 px-4">
+      <div class="container mx-auto text-center">
+        <h1 class="text-4xl md:text-6xl font-bold mb-6 text-gray-800">
+          Clear Skin, <span class="text-green-400">Confident You</span>
+        </h1>
+        <p class="text-xl md:text-2xl mb-10 max-w-2xl mx-auto text-gray-600">
+          Natural skincare solutions for your unique beauty journey
+        </p>
+        <a
+          href="#products"
+          class="bg-green-400 hover:bg-green-500 text-white font-semibold py-3 px-8 rounded-full transition duration-300 inline-block"
+          >Shop Now</a
+        >
+      </div>
+    </section>
+
+    <!-- Featured Products -->
+    <section id="products" class="py-16 bg-gray-50">
+      <div class="container mx-auto px-4">
+        <h2 class="text-3xl font-bold text-center mb-12">
+          Our <span class="text-green-400">Products</span>
+        </h2>
+
+        <div
+          class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8"
+        >
+          <!-- Product 1 -->
+          <div
+            class="product-card bg-white rounded-lg overflow-hidden shadow-md transition duration-300"
+          >
+            <div class="relative overflow-hidden h-64">
+              <img
+                src="https://images.unsplash.com/photo-1571781926291-c477ebfd024b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1974&q=80"
+                alt="Hydrating Facial Cleanser"
+                class="w-full h-full object-cover"
+              />
+            </div>
+            <div class="p-5">
+              <h3 class="text-xl font-semibold mb-2">
+                Hydrating Facial Cleanser
+              </h3>
+              <p class="text-gray-600 mb-4">
+                Gentle daily cleanser that removes impurities without stripping
+                moisture
+              </p>
+              <div class="flex justify-between items-center">
+                <span class="text-green-500 font-bold">$24.99</span>
+                <button
+                  class="add-to-cart bg-green-400 hover:bg-green-500 text-white py-2 px-4 rounded-full text-sm transition duration-300"
+                  data-product="1"
+                >
+                  Add to Cart
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Product 2 -->
+          <div
+            class="product-card bg-white rounded-lg overflow-hidden shadow-md transition duration-300"
+          >
+            <div class="relative overflow-hidden h-64">
+              <img
+                src="https://images.unsplash.com/photo-1607602132700-068258944f0f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80"
+                alt="Nourishing Night Cream"
+                class="w-full h-full object-cover"
+              />
+            </div>
+            <div class="p-5">
+              <h3 class="text-xl font-semibold mb-2">Nourishing Night Cream</h3>
+              <p class="text-gray-600 mb-4">
+                Rich formula that replenishes skin while you sleep
+              </p>
+              <div class="flex justify-between items-center">
+                <span class="text-green-500 font-bold">$32.99</span>
+                <button
+                  class="add-to-cart bg-green-400 hover:bg-green-500 text-white py-2 px-4 rounded-full text-sm transition duration-300"
+                  data-product="2"
+                >
+                  Add to Cart
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Product 3 -->
+          <div
+            class="product-card bg-white rounded-lg overflow-hidden shadow-md transition duration-300"
+          >
+            <div class="relative overflow-hidden h-64">
+              <img
+                src="https://images.unsplash.com/photo-1556228578-8c89e6adf883?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80"
+                alt="Vitamin C Serum"
+                class="w-full h-full object-cover"
+              />
+            </div>
+            <div class="p-5">
+              <h3 class="text-xl font-semibold mb-2">Vitamin C Serum</h3>
+              <p class="text-gray-600 mb-4">
+                Brightening serum to improve skin tone and texture
+              </p>
+              <div class="flex justify-between items-center">
+                <span class="text-green-500 font-bold">$28.99</span>
+                <button
+                  class="add-to-cart bg-green-400 hover:bg-green-500 text-white py-2 px-4 rounded-full text-sm transition duration-300"
+                  data-product="3"
+                >
+                  Add to Cart
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Product 4 -->
+          <div
+            class="product-card bg-white rounded-lg overflow-hidden shadow-md transition duration-300"
+          >
+            <div class="relative overflow-hidden h-64">
+              <img
+                src="https://images.unsplash.com/photo-1631729371254-42c2892f0e6e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80"
+                alt="SPF 30 Moisturizer"
+                class="w-full h-full object-cover"
+              />
+            </div>
+            <div class="p-5">
+              <h3 class="text-xl font-semibold mb-2">SPF 30 Moisturizer</h3>
+              <p class="text-gray-600 mb-4">
+                Daily moisturizer with broad spectrum sun protection
+              </p>
+              <div class="flex justify-between items-center">
+                <span class="text-green-500 font-bold">$26.99</span>
+                <button
+                  class="add-to-cart bg-green-400 hover:bg-green-500 text-white py-2 px-4 rounded-full text-sm transition duration-300"
+                  data-product="4"
+                >
+                  Add to Cart
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="text-center mt-12">
+          <a
+            href="#"
+            class="inline-block border-2 border-green-400 text-green-400 hover:bg-green-400 hover:text-white font-semibold py-2 px-6 rounded-full transition duration-300"
+            >View All Products</a
+          >
+        </div>
+      </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-16">
+      <div class="container mx-auto px-4">
+        <div class="flex flex-col md:flex-row items-center">
+          <div class="md:w-1/2 mb-8 md:mb-0 md:pr-10">
+            <img
+              src="https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80"
+              alt="About Donis Skincare"
+              class="rounded-lg shadow-lg w-full"
+            />
+          </div>
+          <div class="md:w-1/2">
+            <h2 class="text-3xl font-bold mb-6">
+              Our <span class="text-green-400">Story</span>
+            </h2>
+            <p class="text-gray-600 mb-4">
+              Founded in 2018 by dermatologist Dr. Donis Smith, Donis Skincare
+              was born from a passion for creating effective, clean skincare
+              solutions that work for all skin types.
+            </p>
+            <p class="text-gray-600 mb-6">
+              We believe in the power of nature combined with scientific
+              innovation to deliver visible results without harsh ingredients.
+              Every product is carefully formulated and tested to meet our high
+              standards.
+            </p>
+
+            <h3 class="text-xl font-semibold mb-3 text-green-400">
+              Our Mission
+            </h3>
+            <p class="text-gray-600 mb-6">
+              To help people feel confident in their skin by providing
+              high-quality, sustainable skincare that's accessible to everyone.
+            </p>
+
+            <h3 class="text-xl font-semibold mb-3 text-green-400">
+              Our Values
+            </h3>
+            <ul class="space-y-2">
+              <li class="flex items-start">
+                <i class="fas fa-leaf text-green-400 mt-1 mr-2"></i>
+                <span class="text-gray-600"
+                  >Clean ingredients you can trust</span
+                >
+              </li>
+              <li class="flex items-start">
+                <i class="fas fa-recycle text-green-400 mt-1 mr-2"></i>
+                <span class="text-gray-600">Sustainable practices</span>
+              </li>
+              <li class="flex items-start">
+                <i class="fas fa-heart text-green-400 mt-1 mr-2"></i>
+                <span class="text-gray-600">Cruelty-free formulations</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Blog/Tips Section -->
+    <section id="blog" class="py-16 bg-gray-50">
+      <div class="container mx-auto px-4">
+        <h2 class="text-3xl font-bold text-center mb-12">
+          Skincare <span class="text-green-400">Tips</span>
+        </h2>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <!-- Tip 1 -->
+          <div
+            class="blog-card bg-white rounded-lg overflow-hidden shadow-md transition duration-300"
+          >
+            <div class="relative overflow-hidden h-48">
+              <img
+                src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80"
+                alt="Daily Routine"
+                class="blog-img w-full h-full object-cover transition duration-500"
+              />
+            </div>
+            <div class="p-6">
+              <h3 class="text-xl font-semibold mb-3">
+                The Perfect Morning Routine
+              </h3>
+              <p class="text-gray-600 mb-4">
+                Learn how to start your day with a skincare routine that
+                protects and nourishes your skin...
+              </p>
+              <a
+                href="#"
+                class="text-green-400 font-medium hover:text-green-500 transition duration-300 inline-flex items-center"
+              >
+                Read More <i class="fas fa-arrow-right ml-2"></i>
+              </a>
+            </div>
+          </div>
+
+          <!-- Tip 2 -->
+          <div
+            class="blog-card bg-white rounded-lg overflow-hidden shadow-md transition duration-300"
+          >
+            <div class="relative overflow-hidden h-48">
+              <img
+                src="https://images.unsplash.com/photo-1596755094514-f87e34085b2c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2088&q=80"
+                alt="Ingredients"
+                class="blog-img w-full h-full object-cover transition duration-500"
+              />
+            </div>
+            <div class="p-6">
+              <h3 class="text-xl font-semibold mb-3">
+                Ingredients to Look For
+              </h3>
+              <p class="text-gray-600 mb-4">
+                Discover the key ingredients that make a real difference in your
+                skincare products...
+              </p>
+              <a
+                href="#"
+                class="text-green-400 font-medium hover:text-green-500 transition duration-300 inline-flex items-center"
+              >
+                Read More <i class="fas fa-arrow-right ml-2"></i>
+              </a>
+            </div>
+          </div>
+
+          <!-- Tip 3 -->
+          <div
+            class="blog-card bg-white rounded-lg overflow-hidden shadow-md transition duration-300"
+          >
+            <div class="relative overflow-hidden h-48">
+              <img
+                src="https://images.unsplash.com/photo-1556228453-efd6c1ff04f6?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80"
+                alt="Seasonal Care"
+                class="blog-img w-full h-full object-cover transition duration-500"
+              />
+            </div>
+            <div class="p-6">
+              <h3 class="text-xl font-semibold mb-3">
+                Seasonal Skincare Adjustments
+              </h3>
+              <p class="text-gray-600 mb-4">
+                How to modify your routine as the seasons change to keep your
+                skin at its best...
+              </p>
+              <a
+                href="#"
+                class="text-green-400 font-medium hover:text-green-500 transition duration-300 inline-flex items-center"
+              >
+                Read More <i class="fas fa-arrow-right ml-2"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <div class="text-center mt-12">
+          <a
+            href="#"
+            class="inline-block border-2 border-green-400 text-green-400 hover:bg-green-400 hover:text-white font-semibold py-2 px-6 rounded-full transition duration-300"
+            >View All Articles</a
+          >
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-16">
+      <div class="container mx-auto px-4">
+        <h2 class="text-3xl font-bold text-center mb-12">
+          Get In <span class="text-green-400">Touch</span>
+        </h2>
+
+        <div class="flex flex-col md:flex-row">
+          <div class="md:w-1/2 mb-8 md:mb-0 md:pr-10">
+            <form class="space-y-6">
+              <div>
+                <label
+                  for="name"
+                  class="block text-sm font-medium text-gray-700 mb-1"
+                  >Name</label
+                >
+                <input
+                  type="text"
+                  id="name"
+                  class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-400"
+                />
+              </div>
+              <div>
+                <label
+                  for="email"
+                  class="block text-sm font-medium text-gray-700 mb-1"
+                  >Email</label
+                >
+                <input
+                  type="email"
+                  id="email"
+                  class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-400"
+                />
+              </div>
+              <div>
+                <label
+                  for="message"
+                  class="block text-sm font-medium text-gray-700 mb-1"
+                  >Message</label
+                >
+                <textarea
+                  id="message"
+                  rows="5"
+                  class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-400"
+                ></textarea>
+              </div>
+              <button
+                type="submit"
+                class="bg-green-400 hover:bg-green-500 text-white font-semibold py-2 px-6 rounded-full transition duration-300"
+              >
+                Send Message
+              </button>
+            </form>
+          </div>
+
+          <div class="md:w-1/2 md:pl-10">
+            <h3 class="text-xl font-semibold mb-4">Contact Information</h3>
+            <div class="space-y-4">
+              <div class="flex items-start">
+                <i
+                  class="fas fa-map-marker-alt text-green-400 mt-1 mr-3 text-lg"
+                ></i>
+                <div>
+                  <h4 class="font-medium">Address</h4>
+                  <p class="text-gray-600">
+                    123 Skincare Ave, Beauty City, BC 12345
+                  </p>
+                </div>
+              </div>
+              <div class="flex items-start">
+                <i
+                  class="fas fa-phone-alt text-green-400 mt-1 mr-3 text-lg"
+                ></i>
+                <div>
+                  <h4 class="font-medium">Phone</h4>
+                  <p class="text-gray-600">(123) 456-7890</p>
+                </div>
+              </div>
+              <div class="flex items-start">
+                <i class="fas fa-envelope text-green-400 mt-1 mr-3 text-lg"></i>
+                <div>
+                  <h4 class="font-medium">Email</h4>
+                  <p class="text-gray-600">info@donisskincare.com</p>
+                </div>
+              </div>
+            </div>
+
+            <h3 class="text-xl font-semibold mt-8 mb-4">Follow Us</h3>
+            <div class="flex space-x-4">
+              <a
+                href="#"
+                class="social-icon h-10 w-10 rounded-full bg-gray-100 hover:bg-green-400 text-gray-700 hover:text-white flex items-center justify-center transition duration-300"
+              >
+                <i class="fab fa-facebook-f"></i>
+              </a>
+              <a
+                href="#"
+                class="social-icon h-10 w-10 rounded-full bg-gray-100 hover:bg-green-400 text-gray-700 hover:text-white flex items-center justify-center transition duration-300"
+              >
+                <i class="fab fa-instagram"></i>
+              </a>
+              <a
+                href="#"
+                class="social-icon h-10 w-10 rounded-full bg-gray-100 hover:bg-green-400 text-gray-700 hover:text-white flex items-center justify-center transition duration-300"
+              >
+                <i class="fab fa-twitter"></i>
+              </a>
+              <a
+                href="#"
+                class="social-icon h-10 w-10 rounded-full bg-gray-100 hover:bg-green-400 text-gray-700 hover:text-white flex items-center justify-center transition duration-300"
+              >
+                <i class="fab fa-pinterest-p"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-50 py-12">
+      <div class="container mx-auto px-4">
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+          <div>
+            <h3 class="text-lg font-semibold mb-4">DONIS SKINCARE</h3>
+            <p class="text-gray-600">
+              Clean, effective skincare for all skin types. Natural ingredients,
+              visible results.
+            </p>
+          </div>
+          <div>
+            <h3 class="text-lg font-semibold mb-4">Quick Links</h3>
+            <ul class="space-y-2">
+              <li>
+                <a
+                  href="#home"
+                  class="text-gray-600 hover:text-green-400 transition duration-300"
+                  >Home</a
+                >
+              </li>
+              <li>
+                <a
+                  href="#products"
+                  class="text-gray-600 hover:text-green-400 transition duration-300"
+                  >Products</a
+                >
+              </li>
+              <li>
+                <a
+                  href="#about"
+                  class="text-gray-600 hover:text-green-400 transition duration-300"
+                  >About Us</a
+                >
+              </li>
+              <li>
+                <a
+                  href="#blog"
+                  class="text-gray-600 hover:text-green-400 transition duration-300"
+                  >Skincare Tips</a
+                >
+              </li>
+              <li>
+                <a
+                  href="#contact"
+                  class="text-gray-600 hover:text-green-400 transition duration-300"
+                  >Contact</a
+                >
+              </li>
+            </ul>
+          </div>
+          <div>
+            <h3 class="text-lg font-semibold mb-4">Customer Service</h3>
+            <ul class="space-y-2">
+              <li>
+                <a
+                  href="#"
+                  class="text-gray-600 hover:text-green-400 transition duration-300"
+                  >FAQs</a
+                >
+              </li>
+              <li>
+                <a
+                  href="#"
+                  class="text-gray-600 hover:text-green-400 transition duration-300"
+                  >Shipping & Returns</a
+                >
+              </li>
+              <li>
+                <a
+                  href="#"
+                  class="text-gray-600 hover:text-green-400 transition duration-300"
+                  >Privacy Policy</a
+                >
+              </li>
+              <li>
+                <a
+                  href="#"
+                  class="text-gray-600 hover:text-green-400 transition duration-300"
+                  >Terms & Conditions</a
+                >
+              </li>
+            </ul>
+          </div>
+          <div>
+            <h3 class="text-lg font-semibold mb-4">Newsletter</h3>
+            <p class="text-gray-600 mb-4">
+              Subscribe to get updates on new products and skincare tips.
+            </p>
+            <form class="flex">
+              <input
+                type="email"
+                placeholder="Your email"
+                class="px-4 py-2 border border-gray-300 rounded-l-md w-full focus:outline-none focus:ring-2 focus:ring-green-400"
+              />
+              <button
+                type="submit"
+                class="bg-green-400 hover:bg-green-500 text-white px-4 rounded-r-md transition duration-300"
+              >
+                <i class="fas fa-paper-plane"></i>
+              </button>
+            </form>
+          </div>
+        </div>
+        <div
+          class="border-t border-gray-200 mt-12 pt-8 flex flex-col md:flex-row justify-between items-center"
+        >
+          <p class="text-gray-600 mb-4 md:mb-0">
+            © 2023 Donis Skincare. All rights reserved.
+          </p>
+          <div class="flex space-x-6">
+            <a
+              href="#"
+              class="text-gray-600 hover:text-green-400 transition duration-300"
+            >
+              <i class="fab fa-cc-visa text-2xl"></i>
+            </a>
+            <a
+              href="#"
+              class="text-gray-600 hover:text-green-400 transition duration-300"
+            >
+              <i class="fab fa-cc-mastercard text-2xl"></i>
+            </a>
+            <a
+              href="#"
+              class="text-gray-600 hover:text-green-400 transition duration-300"
+            >
+              <i class="fab fa-cc-paypal text-2xl"></i>
+            </a>
+            <a
+              href="#"
+              class="text-gray-600 hover:text-green-400 transition duration-300"
+            >
+              <i class="fab fa-cc-apple-pay text-2xl"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <!-- Simple Cart Notification -->
+    <div
+      id="cart-notification"
+      class="fixed bottom-4 right-4 bg-green-400 text-white px-6 py-3 rounded-full shadow-lg hidden transform translate-y-4 opacity-0 transition duration-300"
+    >
+      <span id="notification-text">Item added to cart!</span>
+    </div>
+
+    <script>
+      // Mobile Menu Toggle
+      const mobileMenuButton = document.getElementById("mobile-menu-button");
+      const mobileMenu = document.getElementById("mobile-menu");
+
+      mobileMenuButton.addEventListener("click", () => {
+        mobileMenu.classList.toggle("hidden");
+      });
+
+      // Smooth scrolling for navigation links
+      document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+        anchor.addEventListener("click", function (e) {
+          e.preventDefault();
+
+          // Close mobile menu if open
+          if (!mobileMenu.classList.contains("hidden")) {
+            mobileMenu.classList.add("hidden");
+          }
+
+          const targetId = this.getAttribute("href");
+          if (targetId === "#") return;
+
+          const targetElement = document.querySelector(targetId);
+          if (targetElement) {
+            const headerHeight = document.querySelector("nav").offsetHeight;
+            const targetPosition =
+              targetElement.getBoundingClientRect().top +
+              window.pageYOffset -
+              headerHeight;
+
+            window.scrollTo({
+              top: targetPosition,
+              behavior: "smooth",
+            });
+          }
+        });
+      });
+
+      // Simple Add to Cart functionality
+      const addToCartButtons = document.querySelectorAll(".add-to-cart");
+      const cartCount = document.querySelector(".cart-count");
+      const cartNotification = document.getElementById("cart-notification");
+      const notificationText = document.getElementById("notification-text");
+
+      let cartItems = 0;
+
+      addToCartButtons.forEach((button) => {
+        button.addEventListener("click", () => {
+          cartItems++;
+          cartCount.textContent = cartItems;
+
+          // Get product name
+          const productCard = button.closest(".product-card");
+          const productName = productCard.querySelector("h3").textContent;
+
+          // Show notification
+          notificationText.textContent = `${productName} added to cart!`;
+          cartNotification.classList.remove("hidden");
+          cartNotification.classList.add("translate-y-0", "opacity-100");
+
+          // Hide notification after 3 seconds
+          setTimeout(() => {
+            cartNotification.classList.remove("translate-y-0", "opacity-100");
+            cartNotification.classList.add("translate-y-4", "opacity-0");
+          }, 3000);
+        });
+      });
+
+      // Hide notification when animation ends
+      cartNotification.addEventListener("transitionend", () => {
+        if (cartNotification.classList.contains("opacity-0")) {
+          cartNotification.classList.add("hidden");
+        }
+      });
+    </script>
+  </body>
+</html>
