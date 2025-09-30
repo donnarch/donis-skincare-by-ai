@@ -64,7 +64,7 @@
               >0</span
             >
           </a>
-          <button class="md:hidden text-green-400" id="mobile-menu-button">
+          <button class="md:hidden text-green-400" id="mobile-menu-button" aria-controls="mobile-menu" aria-expanded="false">
             <i class="fas fa-bars text-2xl"></i>
           </button>
         </div>
@@ -662,6 +662,8 @@
     <div
       id="cart-notification"
       class="fixed bottom-4 right-4 bg-green-400 text-white px-6 py-3 rounded-full shadow-lg hidden transform translate-y-4 opacity-0 transition duration-300"
+      role="status"
+      aria-live="polite"
     >
       <span id="notification-text">Item added to cart!</span>
     </div>
@@ -672,7 +674,8 @@
       const mobileMenu = document.getElementById("mobile-menu");
 
       mobileMenuButton.addEventListener("click", () => {
-        mobileMenu.classList.toggle("hidden");
+        const isHidden = mobileMenu.classList.toggle("hidden");
+        mobileMenuButton.setAttribute("aria-expanded", (!isHidden).toString());
       });
 
       // Smooth scrolling for navigation links
@@ -680,9 +683,10 @@
         anchor.addEventListener("click", function (e) {
           e.preventDefault();
 
-          // Close mobile menu if open
+          // Close mobile menu if open and update ARIA state
           if (!mobileMenu.classList.contains("hidden")) {
             mobileMenu.classList.add("hidden");
+            mobileMenuButton.setAttribute("aria-expanded", "false");
           }
 
           const targetId = this.getAttribute("href");
@@ -696,6 +700,9 @@
               window.pageYOffset -
               headerHeight;
 
+            // Update URL hash without default jump/back-breaking
+            history.pushState(null, "", targetId);
+
             window.scrollTo({
               top: targetPosition,
               behavior: "smooth",
@@ -704,6 +711,22 @@
         });
       });
 
+      // Handle initial deep-link hash so content isn't hidden behind fixed header
+      if (window.location.hash && window.location.hash !== "#") {
+        const targetElement = document.querySelector(window.location.hash);
+        if (targetElement) {
+          const headerHeight = document.querySelector("nav").offsetHeight;
+          const targetPosition =
+            targetElement.getBoundingClientRect().top +
+            window.pageYOffset -
+            headerHeight;
+          // Delay slightly to ensure layout is ready
+          setTimeout(() => {
+            window.scrollTo({ top: targetPosition, behavior: "auto" });
+          }, 0);
+        }
+      }
+
       // Simple Add to Cart functionality
       const addToCartButtons = document.querySelectorAll(".add-to-cart");
       const cartCount = document.querySelector(".cart-count");
@@ -711,6 +734,22 @@
       const notificationText = document.getElementById("notification-text");
 
       let cartItems = 0;
+      let hideNotificationTimeoutId;
+
+      function showNotification(message) {
+        if (hideNotificationTimeoutId) {
+          clearTimeout(hideNotificationTimeoutId);
+        }
+
+        notificationText.textContent = message;
+        cartNotification.classList.remove("hidden", "translate-y-4", "opacity-0");
+        cartNotification.classList.add("translate-y-0", "opacity-100");
+
+        hideNotificationTimeoutId = setTimeout(() => {
+          cartNotification.classList.remove("translate-y-0", "opacity-100");
+          cartNotification.classList.add("translate-y-4", "opacity-0");
+        }, 3000);
+      }
 
       addToCartButtons.forEach((button) => {
         button.addEventListener("click", () => {
@@ -721,18 +760,34 @@
           const productCard = button.closest(".product-card");
           const productName = productCard.querySelector("h3").textContent;
 
-          // Show notification
-          notificationText.textContent = `${productName} added to cart!`;
-          cartNotification.classList.remove("hidden");
-          cartNotification.classList.add("translate-y-0", "opacity-100");
-
-          // Hide notification after 3 seconds
-          setTimeout(() => {
-            cartNotification.classList.remove("translate-y-0", "opacity-100");
-            cartNotification.classList.add("translate-y-4", "opacity-0");
-          }, 3000);
+          showNotification(`${productName} added to cart!`);
         });
       });
+
+      // Prevent form submissions from reloading the page and show friendly feedback
+      const contactForm = document.querySelector("#contact form");
+      if (contactForm) {
+        contactForm.addEventListener("submit", (e) => {
+          e.preventDefault();
+          showNotification("Thanks! We'll get back to you shortly.");
+          contactForm.reset();
+        });
+      }
+
+      const newsletterForm = document.querySelector("footer form");
+      if (newsletterForm) {
+        newsletterForm.addEventListener("submit", (e) => {
+          e.preventDefault();
+          const emailInput = newsletterForm.querySelector('input[type="email"]');
+          const emailValue = emailInput ? emailInput.value.trim() : "";
+          if (!emailValue) {
+            showNotification("Please enter a valid email.");
+            return;
+          }
+          showNotification("Subscribed! Check your inbox for a confirmation.");
+          newsletterForm.reset();
+        });
+      }
 
       // Hide notification when animation ends
       cartNotification.addEventListener("transitionend", () => {
