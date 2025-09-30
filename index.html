@@ -723,23 +723,94 @@
 
           // Show notification
           notificationText.textContent = `${productName} added to cart!`;
-          cartNotification.classList.remove("hidden");
-          cartNotification.classList.add("translate-y-0", "opacity-100");
+          cartNotification.classList.remove("hidden", "translate-y-4", "opacity-0");
+          
+          // Use setTimeout to ensure the DOM has updated before adding animation classes
+          setTimeout(() => {
+            cartNotification.classList.add("translate-y-0", "opacity-100");
+          }, 10);
 
           // Hide notification after 3 seconds
           setTimeout(() => {
             cartNotification.classList.remove("translate-y-0", "opacity-100");
             cartNotification.classList.add("translate-y-4", "opacity-0");
+            
+            // Hide completely after animation completes (300ms transition)
+            setTimeout(() => {
+              cartNotification.classList.add("hidden");
+            }, 300);
           }, 3000);
         });
       });
 
-      // Hide notification when animation ends
-      cartNotification.addEventListener("transitionend", () => {
-        if (cartNotification.classList.contains("opacity-0")) {
-          cartNotification.classList.add("hidden");
-        }
-      });
+      // Utility function to sanitize text content
+      function sanitizeText(text) {
+        const div = document.createElement("div");
+        div.textContent = text;
+        return div.innerHTML;
+      }
+
+      // Contact Form Handling
+      const contactForm = document.querySelector("#contact form");
+      if (contactForm) {
+        contactForm.addEventListener("submit", (e) => {
+          e.preventDefault();
+          
+          // Get form values
+          const name = document.getElementById("name").value.trim();
+          const email = document.getElementById("email").value.trim();
+          const message = document.getElementById("message").value.trim();
+          
+          // Simple validation
+          if (!name || !email || !message) {
+            alert("Please fill in all fields");
+            return;
+          }
+          
+          // Email validation
+          const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+          if (!emailRegex.test(email)) {
+            alert("Please enter a valid email address");
+            return;
+          }
+          
+          // Validate input length to prevent abuse
+          if (name.length > 100 || message.length > 1000) {
+            alert("Input too long. Please keep your message concise.");
+            return;
+          }
+          
+          // Show success message
+          alert("Thank you for your message! We'll get back to you soon.");
+          
+          // Clear form
+          contactForm.reset();
+        });
+      }
+
+      // Newsletter Form Handling
+      const newsletterForm = document.querySelector("footer form");
+      if (newsletterForm) {
+        newsletterForm.addEventListener("submit", (e) => {
+          e.preventDefault();
+          
+          const emailInput = newsletterForm.querySelector('input[type="email"]');
+          const email = emailInput.value.trim();
+          
+          // Email validation
+          const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+          if (!email || !emailRegex.test(email)) {
+            alert("Please enter a valid email address");
+            return;
+          }
+          
+          // Show success message
+          alert("Thank you for subscribing to our newsletter!");
+          
+          // Clear form
+          newsletterForm.reset();
+        });
+      }
     </script>
   </body>
 </html>
