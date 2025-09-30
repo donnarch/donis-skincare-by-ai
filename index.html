@@ -116,7 +116,7 @@
             class="product-card bg-white rounded-lg overflow-hidden shadow-md transition duration-300"
           >
             <div class="relative overflow-hidden h-64">
-              <img
+              <img loading="lazy"
                 src="https://images.unsplash.com/photo-1571781926291-c477ebfd024b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1974&q=80"
                 alt="Hydrating Facial Cleanser"
                 class="w-full h-full object-cover"
@@ -147,7 +147,7 @@
             class="product-card bg-white rounded-lg overflow-hidden shadow-md transition duration-300"
           >
             <div class="relative overflow-hidden h-64">
-              <img
+              <img loading="lazy"
                 src="https://images.unsplash.com/photo-1607602132700-068258944f0f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80"
                 alt="Nourishing Night Cream"
                 class="w-full h-full object-cover"
@@ -175,7 +175,7 @@
             class="product-card bg-white rounded-lg overflow-hidden shadow-md transition duration-300"
           >
             <div class="relative overflow-hidden h-64">
-              <img
+              <img loading="lazy"
                 src="https://images.unsplash.com/photo-1556228578-8c89e6adf883?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80"
                 alt="Vitamin C Serum"
                 class="w-full h-full object-cover"
@@ -203,7 +203,7 @@
             class="product-card bg-white rounded-lg overflow-hidden shadow-md transition duration-300"
           >
             <div class="relative overflow-hidden h-64">
-              <img
+              <img loading="lazy"
                 src="https://images.unsplash.com/photo-1631729371254-42c2892f0e6e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80"
                 alt="SPF 30 Moisturizer"
                 class="w-full h-full object-cover"
@@ -242,7 +242,7 @@
       <div class="container mx-auto px-4">
         <div class="flex flex-col md:flex-row items-center">
           <div class="md:w-1/2 mb-8 md:mb-0 md:pr-10">
-            <img
+            <img loading="lazy"
               src="https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80"
               alt="About Donis Skincare"
               class="rounded-lg shadow-lg w-full"
@@ -309,7 +309,7 @@
             class="blog-card bg-white rounded-lg overflow-hidden shadow-md transition duration-300"
           >
             <div class="relative overflow-hidden h-48">
-              <img
+              <img loading="lazy"
                 src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80"
                 alt="Daily Routine"
                 class="blog-img w-full h-full object-cover transition duration-500"
@@ -337,7 +337,7 @@
             class="blog-card bg-white rounded-lg overflow-hidden shadow-md transition duration-300"
           >
             <div class="relative overflow-hidden h-48">
-              <img
+              <img loading="lazy"
                 src="https://images.unsplash.com/photo-1596755094514-f87e34085b2c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2088&q=80"
                 alt="Ingredients"
                 class="blog-img w-full h-full object-cover transition duration-500"
@@ -365,7 +365,7 @@
             class="blog-card bg-white rounded-lg overflow-hidden shadow-md transition duration-300"
           >
             <div class="relative overflow-hidden h-48">
-              <img
+              <img loading="lazy"
                 src="https://images.unsplash.com/photo-1556228453-efd6c1ff04f6?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80"
                 alt="Seasonal Care"
                 class="blog-img w-full h-full object-cover transition duration-500"
@@ -675,9 +675,21 @@
         mobileMenu.classList.toggle("hidden");
       });
 
-      // Smooth scrolling for navigation links
+      // Smooth scrolling for in-page navigation links only
       document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
         anchor.addEventListener("click", function (e) {
+          const targetId = this.getAttribute("href");
+          // Allow placeholders like "#" to behave normally for accessibility
+          if (targetId === "#") {
+            return;
+          }
+
+          const targetElement = document.querySelector(targetId);
+          if (!targetElement) {
+            return;
+          }
+
+          // Prevent default only for valid in-page targets
           e.preventDefault();
 
           // Close mobile menu if open
@@ -685,57 +697,66 @@
             mobileMenu.classList.add("hidden");
           }
 
-          const targetId = this.getAttribute("href");
-          if (targetId === "#") return;
+          const headerHeight = document.querySelector("nav").offsetHeight;
+          const targetPosition =
+            targetElement.getBoundingClientRect().top +
+            window.pageYOffset -
+            headerHeight;
 
-          const targetElement = document.querySelector(targetId);
-          if (targetElement) {
-            const headerHeight = document.querySelector("nav").offsetHeight;
-            const targetPosition =
-              targetElement.getBoundingClientRect().top +
-              window.pageYOffset -
-              headerHeight;
-
-            window.scrollTo({
-              top: targetPosition,
-              behavior: "smooth",
-            });
-          }
+          window.scrollTo({
+            top: targetPosition,
+            behavior: "smooth",
+          });
         });
       });
 
-      // Simple Add to Cart functionality
+      // Simple Add to Cart functionality (with robust notification handling)
       const addToCartButtons = document.querySelectorAll(".add-to-cart");
       const cartCount = document.querySelector(".cart-count");
       const cartNotification = document.getElementById("cart-notification");
       const notificationText = document.getElementById("notification-text");
 
       let cartItems = 0;
+      let hideNotificationTimeoutId = null;
 
       addToCartButtons.forEach((button) => {
         button.addEventListener("click", () => {
-          cartItems++;
-          cartCount.textContent = cartItems;
+          cartItems += 1;
+          cartCount.textContent = String(cartItems);
 
           // Get product name
           const productCard = button.closest(".product-card");
-          const productName = productCard.querySelector("h3").textContent;
+          const productName = productCard
+            ? productCard.querySelector("h3").textContent
+            : "Item";
 
-          // Show notification
+          // Cancel any pending hide timer to avoid race conditions
+          if (hideNotificationTimeoutId !== null) {
+            clearTimeout(hideNotificationTimeoutId);
+            hideNotificationTimeoutId = null;
+          }
+
+          // Show notification without conflicting classes
           notificationText.textContent = `${productName} added to cart!`;
-          cartNotification.classList.remove("hidden");
-          cartNotification.classList.add("translate-y-0", "opacity-100");
+          cartNotification.classList.remove(
+            "hidden",
+            "opacity-0",
+            "translate-y-4"
+          );
+          cartNotification.classList.add("opacity-100", "translate-y-0");
 
           // Hide notification after 3 seconds
-          setTimeout(() => {
-            cartNotification.classList.remove("translate-y-0", "opacity-100");
-            cartNotification.classList.add("translate-y-4", "opacity-0");
+          hideNotificationTimeoutId = window.setTimeout(() => {
+            cartNotification.classList.remove("opacity-100", "translate-y-0");
+            cartNotification.classList.add("opacity-0", "translate-y-4");
+            hideNotificationTimeoutId = null;
           }, 3000);
         });
       });
 
-      // Hide notification when animation ends
-      cartNotification.addEventListener("transitionend", () => {
+      // Hide notification when its own transition ends
+      cartNotification.addEventListener("transitionend", (event) => {
+        if (event.target !== cartNotification) return;
         if (cartNotification.classList.contains("opacity-0")) {
           cartNotification.classList.add("hidden");
         }
