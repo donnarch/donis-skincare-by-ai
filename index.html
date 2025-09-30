@@ -408,7 +408,7 @@
 
         <div class="flex flex-col md:flex-row">
           <div class="md:w-1/2 mb-8 md:mb-0 md:pr-10">
-            <form class="space-y-6">
+            <form id="contact-form" class="space-y-6">
               <div>
                 <label
                   for="name"
@@ -418,6 +418,9 @@
                 <input
                   type="text"
                   id="name"
+                  name="name"
+                  required
+                  maxlength="100"
                   class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-400"
                 />
               </div>
@@ -430,6 +433,9 @@
                 <input
                   type="email"
                   id="email"
+                  name="email"
+                  required
+                  maxlength="255"
                   class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-400"
                 />
               </div>
@@ -441,7 +447,10 @@
                 >
                 <textarea
                   id="message"
+                  name="message"
                   rows="5"
+                  required
+                  maxlength="1000"
                   class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-400"
                 ></textarea>
               </div>
@@ -711,35 +720,86 @@
       const notificationText = document.getElementById("notification-text");
 
       let cartItems = 0;
+      let notificationTimeout = null;
+
+      // Single event listener for transition end
+      cartNotification.addEventListener("transitionend", () => {
+        if (cartNotification.classList.contains("opacity-0")) {
+          cartNotification.classList.add("hidden");
+        }
+      });
 
       addToCartButtons.forEach((button) => {
         button.addEventListener("click", () => {
           cartItems++;
           cartCount.textContent = cartItems;
 
-          // Get product name
+          // Get product name and sanitize it
           const productCard = button.closest(".product-card");
-          const productName = productCard.querySelector("h3").textContent;
+          const productNameElement = productCard.querySelector("h3");
+          const productName = productNameElement ? productNameElement.textContent.trim() : "Product";
+
+          // Clear existing timeout to prevent multiple notifications
+          if (notificationTimeout) {
+            clearTimeout(notificationTimeout);
+          }
 
           // Show notification
           notificationText.textContent = `${productName} added to cart!`;
-          cartNotification.classList.remove("hidden");
+          cartNotification.classList.remove("hidden", "translate-y-4", "opacity-0");
           cartNotification.classList.add("translate-y-0", "opacity-100");
 
           // Hide notification after 3 seconds
-          setTimeout(() => {
+          notificationTimeout = setTimeout(() => {
             cartNotification.classList.remove("translate-y-0", "opacity-100");
             cartNotification.classList.add("translate-y-4", "opacity-0");
+            notificationTimeout = null;
           }, 3000);
         });
       });
 
-      // Hide notification when animation ends
-      cartNotification.addEventListener("transitionend", () => {
-        if (cartNotification.classList.contains("opacity-0")) {
-          cartNotification.classList.add("hidden");
-        }
-      });
+      // Contact form validation and security
+      const contactForm = document.getElementById("contact-form");
+      if (contactForm) {
+        contactForm.addEventListener("submit", function(e) {
+          e.preventDefault();
+          
+          const name = document.getElementById("name").value.trim();
+          const email = document.getElementById("email").value.trim();
+          const message = document.getElementById("message").value.trim();
+          
+          // Basic validation
+          if (!name || name.length < 2 || name.length > 100) {
+            alert("Please enter a valid name (2-100 characters).");
+            return false;
+          }
+          
+          // Email validation
+          const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+          if (!email || !emailRegex.test(email) || email.length > 255) {
+            alert("Please enter a valid email address.");
+            return false;
+          }
+          
+          if (!message || message.length < 10 || message.length > 1000) {
+            alert("Please enter a message (10-1000 characters).");
+            return false;
+          }
+          
+          // Prevent potential XSS by checking for suspicious patterns
+          const suspiciousPattern = /<script|javascript:|on\w+\s*=/i;
+          if (suspiciousPattern.test(name + email + message)) {
+            alert("Invalid characters detected in form submission.");
+            return false;
+          }
+          
+          // In a real application, this would submit to a server
+          alert("Thank you for your message! We'll get back to you soon.");
+          contactForm.reset();
+          
+          return false;
+        });
+      }
     </script>
   </body>
 </html>
